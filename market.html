@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRUPO PS - Compra, Vende e Intercambia Cualquier Cosa</title>
+    <style>
+        /* CSS Variables from globals.css */
+        :root {
+            --font-size: 16px;
+            --background: #ffffff;
+            --foreground: oklch(0.145 0 0);
+            --card: #ffffff;
+            --card-foreground: oklch(0.145 0 0);
+            --popover: oklch(1 0 0);
+            --popover-foreground: oklch(0.145 0 0);
+            --primary: #030213;
+            --primary-foreground: oklch(1 0 0);
+            --secondary: oklch(0.95 0.0058 264.53);
+            --secondary-foreground: #030213;
+            --muted: #ececf0;
+            --muted-foreground: #717182;
+            --accent: #e9ebef;
+            --accent-foreground: #030213;
+            --destructive: #d4183d;
+            --destructive-foreground: #ffffff;
+            --border: rgba(0, 0, 0, 0.1);
+            --input: transparent;
+            --input-background: #f3f3f5;
+            --switch-background: #cbced4;
+            --font-weight-medium: 500;
+            --font-weight-normal: 400;
+            --ring: oklch(0.708 0 0);
+            --radius: 0.625rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.5;
+            font-size: var(--font-size);
+            min-height: 100vh;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2rem;
+            font-weight: var(--font-weight-medium);
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: var(--font-weight-medium);
+            line-height: 1.5;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: var(--font-weight-medium);
+            line-height: 1.5;
+        }
+
+        h4 {
+            font-size: 1rem;
+            font-weight: var(--font-weight-medium);
+            line-height: 1.5;
+        }
+
+        p {
+            font-size: 1rem;
+            font-weight: var(--font-weight-normal);
+            line-height: 1.5;
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            font-weight: var(--font-weight-medium);
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            line-height: 1.5;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border);
+            background-color: transparent;
+            color: var(--foreground);
+        }
+
+        .btn-ghost {
+            background-color: transparent;
+            color: var(--foreground);
+        }
+
+        .btn-lg {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        .btn-sm {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 0.375rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: var(--font-weight-medium);
+            line-height: 1;
+        }
+
+        .badge-default {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .badge-secondary {
+            background-color: var(--secondary);
+            color: var(--secondary-foreground);
+        }
+
+        .badge-outline {
+            border: 1px solid var(--border);
+            background-color: transparent;
+            color: var(--foreground);
+        }
+
+        .input {
+            display: flex;
+            width: 100%;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background-color: var(--background);
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: var(--ring);
+        }
+
+        .input-no-border {
+            border: none;
+            background: transparent;
+        }
+
+        .input-no-border:focus {
+            border: none;
+            box-shadow: none;
+        }
+
+        /* Header Styles */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            border-bottom: 1px solid var(--border);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            height: 4rem;
+            align-items: center;
+        }
+
+        .header-left {
+            display: none;
+            margin-right: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-right: 2rem;
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav a {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav a:hover {
+            color: var(--foreground);
+        }
+
+        .mobile-menu-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            padding: 0.5rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .header-right {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
+        .mobile-logo {
+            display: inline-block;
+            color: var(--primary);
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Hero Styles */
+        .hero {
+            background: linear-gradient(135deg, rgba(3, 2, 19, 0.05) 0%, var(--background) 50%, rgba(236, 236, 240, 0.05) 100%);
+        }
+
+        .hero-content {
+            padding: 3rem 0 5rem;
+            text-align: center;
+        }
+
+        .hero-text {
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero .highlight {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--muted-foreground);
+            max-width: 48rem;
+            margin: 0 auto 2rem;
+        }
+
+        .search-container {
+            max-width: 64rem;
+            margin: 0 auto 2rem;
+        }
+
+        .search-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-input-group {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0 0.75rem;
+        }
+
+        .search-input-group input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .search-input-group input:focus {
+            outline: none;
+        }
+
+        .search-input-group input::placeholder {
+            color: var(--muted-foreground);
+        }
+
+        .search-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-left: 1px solid var(--border);
+            padding-left: 0.5rem;
+        }
+
+        .search-location input {
+            width: 8rem;
+            border: none;
+            background: transparent;
+            padding: 0.5rem 0;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero-features {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0.5rem;
+        }
+
+        .feature-icon {
+            width: 3rem;
+            height: 3rem;
+            background-color: rgba(3, 2, 19, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .feature p {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-muted {
+            background-color: rgba(236, 236, 240, 0.2);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-description {
+            color: var(--muted-foreground);
+            max-width: 32rem;
+            margin: 0 auto;
+        }
+
+        /* Categories Grid */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            max-width: 96rem;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            background: var(--card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .category-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-icon {
+            padding: 0.75rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.75rem;
+            font-size: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.1);
+        }
+
+        /* Icon Colors */
+        .icon-blue { background-color: #dbeafe; color: #2563eb; }
+        .icon-green { background-color: #dcfce7; color: #16a34a; }
+        .icon-red { background-color: #fecaca; color: #dc2626; }
+        .icon-purple { background-color: #f3e8ff; color: #9333ea; }
+        .icon-yellow { background-color: #fef3c7; color: #d97706; }
+        .icon-indigo { background-color: #e0e7ff; color: #4f46e5; }
+        .icon-pink { background-color: #fce7f3; color: #ec4899; }
+        .icon-orange { background-color: #fed7aa; color: #ea580c; }
+
+        .category-info {
+            text-align: center;
+        }
+
+        .category-count {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Products */
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 12rem;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-heart-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            width: 2rem;
+            height: 2rem;
+            padding: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(4px);
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-heart-btn:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .product-type-badge {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+        }
+
+        .product-content {
+            padding: 1rem;
+        }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+            gap: 0.5rem;
+        }
+
+        .product-title {
+            flex: 1;
+            margin-right: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-price {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary);
+            white-space: nowrap;
+        }
+
+        .product-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        .product-location, .product-time {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* How It Works */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 4rem;
+            height: 4rem;
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .step h3 {
+            margin-bottom: 1rem;
+        }
+
+        .step p {
+            color: var(--muted-foreground);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: rgba(236, 236, 240, 0.3);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            padding: 3rem 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3, .footer-section h4 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--foreground);
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .social-btn {
+            width: 2rem;
+            height: 2rem;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .newsletter {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .newsletter input {
+            flex: 1;
+            height: 2rem;
+            padding: 0 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        .newsletter button {
+            height: 2rem;
+            padding: 0 0.75rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-bottom-links a {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--foreground);
+        }
+
+        /* SVG Icons */
+        .icon {
+            width: 1rem;
+            height: 1rem;
+            fill: currentColor;
+        }
+
+        .icon-sm {
+            width: 0.75rem;
+            height: 0.75rem;
+        }
+
+        .icon-lg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 640px) {
+            .search-bar {
+                flex-direction: row;
+            }
+            
+            .search-location {
+                border-left: 1px solid var(--border);
+                border-top: none;
+                padding-top: 0;
+            }
+            
+            .hero-actions {
+                flex-direction: row;
+            }
+            
+            .hero-features {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .header-left {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .mobile-logo {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .steps-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <a href="/" class="logo">GRUPO PS</a>
+                    <nav class="nav">
+                        <a href="#browse">Explorar</a>
+                        <a href="#categories">Categorías</a>
+                        <a href="#how-it-works">Cómo Funciona</a>
+                    </nav>
+                </div>
+                <button class="mobile-menu-btn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="4" x2="20" y1="6" y2="6"/>
+                        <line x1="4" x2="20" y1="12" y2="12"/>
+                        <line x1="4" x2="20" y1="18" y2="18"/>
+                    </svg>
+                    <span style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">Toggle menu</span>
+                </button>
+                <div class="header-right">
+                    <div style="width: 100%; flex: 1;">
+                        <span class="mobile-logo">GRUPO PS</span>
+                    </div>
+                    <div class="header-actions">
+                        <a href="#" class="btn btn-outline btn-sm" style="display: none;">
+                            <svg class="icon" style="margin-right: 0.5rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14"/>
+                                <path d="M12 5v14"/>
+                            </svg>
+                            Vender Artículo
+                        </a>
+                        <a href="#" class="btn btn-ghost btn-sm">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            <span style="margin-left: 0.5rem; display: none;">Iniciar Sesión</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Compra, Vende e <span class="highlight">Intercambia</span> Cualquier Cosa</h1>
+                        <p>Únete a miles de personas comprando, vendiendo e intercambiando artículos en tu comunidad local. Desde electrónicos hasta muebles, encuentra grandes ofertas o intercambia por lo que necesitas.</p>
+                    </div>
+                    
+                    <div class="search-container">
+                        <div class="search-bar">
+                            <div class="search-input-group">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="m21 21-4.35-4.35"/>
+                                </svg>
+                                <input type="text" placeholder="¿Qué estás buscando?">
+                            </div>
+                            <div class="search-location">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                <input type="text" placeholder="Ubicación">
+                            </div>
+                            <button class="btn btn-primary">Buscar</button>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-actions">
+                        <a href="#" class="btn btn-primary btn-lg">
+                            Comenzar a Explorar
+                            <svg class="icon" style="margin-left: 0.5rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14"/>
+                                <path d="m12 5 7 7-7 7"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="btn btn-outline btn-lg">Publicar tu Artículo</a>
+                    </div>
+                    
+                    <div class="hero-features">
+                        <div class="feature">
+                            <div class="feature-icon">👥</div>
+                            <h3>Comunidad Confiable</h3>
+                            <p>50k+ usuarios verificados intercambiando de forma segura</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">🛡️</div>
+                            <h3>Intercambio Seguro</h3>
+                            <p>Protección integrada para todas las transacciones</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">⚡</div>
+                            <h3>Rápido y Fácil</h3>
+                            <p>Publica artículos en minutos, encuentra ofertas al instante</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="section section-muted" id="categories">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Explorar por Categoría</h2>
+                    <p class="section-description">Descubre artículos en las categorías que más te interesan</p>
+                </div>
+                
+                <div class="categories-grid">
+                    <a href="#" class="category-card">
+                        <div class="category-icon icon-blue">📱</div>
+                        <div class="category-info">
+                            <h3>Electrónicos</h3>
+                            <p class="category-count">2,342 artículos</p>
+                        </div>
+                    </a>
+                    <a href="#" class="category-card">
+                        <div class="category-icon icon-green">🏠</div>
+                        <div class="category-info">
+                            <h3>Hogar y Jardín</h3>
+                            <p class="category-count">1,890 artículos</p>
+                        </div>
+                    </a>
+                    <a href="#" class="category-card">
+                        <div class="category-icon icon-red">🚗</div>
+                        <div class="category-info">
+                            <h3>Vehículos</h3>
+                            <p class="category-count">756 artículos</p>
+                        </div>
+                    </a>
+                    <a href="#" class="category-card">
+                        <div class="category-icon icon-purple">👕</div>
+                        <div class="category-info">
+                            <h3>Moda</h3>
+                            <p class="category-count">3,124 artículos</p>
+                        </div>
+                    </a>
+                    <a href="#" class="category-card">
+                        <div class="category-icon icon-yellow">📚</div>
+                        <div class="category-info">
+                            <h3>Libros y Medios</h3>
+                            <p class="category-count">1,456 artículos</p>
+                        </div>
+                    </a>
+                    <a href="#" class="category-card">
+                        <div class="category-icon icon-indigo">🎮</div>
+                        <div class="category-info">
+                            <h3>Deportes y Juegos</h3>
+                            <p class="category-count">987 artículos</p>
+                        </div>
+                    </a>
+                    <a href="#" class="category-card">
+                        <div class="category-icon icon-pink">📷</div>
+                        <div class="category-info">
+                            <h3>Fotografía</h3>
+                            <p class="category-count">634 artículos</p>
+                        </div>
+                    </a>
+                    <a href="#" class="category-card">
+                        <div class="category-icon icon-orange">🔧</div>
+                        <div class="category-info">
+                            <h3>Herramientas y Bricolaje</h3>
+                            <p class="category-count">823 artículos</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Items -->
+        <section class="section">
+            <div class="container">
+                <div class="products-header">
+                    <h2>Artículos Destacados</h2>
+                    <a href="#" class="view-all">Ver Todos</a>
+                </div>
+                
+                <div class="products-grid" id="featured-products">
+                    <!-- Products will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Listings -->
+        <section class="section section-muted">
+            <div class="container">
+                <div class="products-header">
+                    <h2>Publicaciones Recientes</h2>
+                </div>
+                
+                <div class="products-grid" id="recent-products">
+                    <!-- Products will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="section" id="how-it-works">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Cómo Funciona GRUPO PS</h2>
+                    <p class="section-description">Comenzar es simple. Sigue estos sencillos pasos para comprar, vender o intercambiar.</p>
+                </div>
+                
+                <div class="steps-grid">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Publica tu Artículo</h3>
+                        <p>Toma fotos, escribe una descripción y establece tu precio o preferencias de intercambio</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Conecta con Compradores</h3>
+                        <p>Los compradores interesados te enviarán mensajes directamente a través de nuestra plataforma segura</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Completa el Trato</h3>
+                        <p>Reúnete de forma segura en persona o usa nuestras opciones de envío para completar tu transacción</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-grid">
+                    <div class="footer-section">
+                        <h3>GRUPO PS</h3>
+                        <p>El mercado confiable para comprar, vender e intercambiar BIENES Y SERVICIOS.</p>
+                        <div class="social-buttons">
+                            <button class="btn btn-ghost social-btn">
+                                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                                </svg>
+                            </button>
+                            <button class="btn btn-ghost social-btn">
+                                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                                </svg>
+                            </button>
+                            <button class="btn btn-ghost social-btn">
+                                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.120.112.225.085.347-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z."/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Enlaces Rápidos</h4>
+                        <ul class="footer-links">
+                            <li><a href="#">Explorar Artículos</a></li>
+                            <li><a href="#">Categorías</a></li>
+                            <li><a href="#">Cómo Funciona</a></li>
+                            <li><a href="#">Consejos de Seguridad</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Soporte</h4>
+                        <ul class="footer-links">
+                            <li><a href="#">Centro de Ayuda</a></li>
+                            <li><a href="#">Contáctanos</a></li>
+                            <li><a href="#">Reportar un Problema</a></li>
+                            <li><a href="#">Directrices de la Comunidad</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Mantente Actualizado</h4>
+                        <p>Recibe notificaciones sobre grandes ofertas y nuevos artículos en tu área.</p>
+                        <div class="newsletter">
+                            <input type="email" placeholder="Tu email" class="input">
+                            <button class="btn btn-primary">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p>&copy; 2024 GRUPO PS. Todos los derechos reservados.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Política de Privacidad</a>
+                        <a href="#">Términos de Servicio</a>
+                        <a href="#">Política de Cookies</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mock product data
+        const mockProducts = [
+            {
+                id: "1",
+                title: "iPhone 14 Pro Max - Excelente Estado",
+                price: "$899000",
+                image: "https://images.unsplash.com/photo-1645684084216-b52ba9e12aaf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVjdHJvbmljcyUyMGdhZGdldHN8ZW58MXx8fHwxNzU3MDc1ODY4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+                location: "Bogotá, Colombia",
+                timeAgo: "hace 2h",
+                condition: "Like New",
+                type: "sale",
+                category: "Electrónicos"
+            },
+            {
+                id: "2",
+                title: "Silla Vintage Estilo Mid-Century",
+                price: "$320000",
+                image: "https://images.unsplash.com/photo-1715249891485-4b8e66b584dc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aW50YWdlJTIwZnVybml0dXJlfGVufDF8fHx8MTc1NzExMDYwNnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+                location: "Medellín, Colombia",
+                timeAgo: "hace 5h",
+                condition: "Good",
+                type: "sale",
+                category: "Muebles"
+            },
+            {
+                id: "3",
+                title: "Chaqueta de Cuero de Diseñador - Talla M",
+                price: "Intercambio por Guitarra",
+                image: "https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aW50YWdlJTIwZnVybml0dXJlfGVufDF8fHx8MTc1NzExMDYwNnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+                location: "Cali, Colombia",
+                timeAgo: "hace 1d",
+                condition: "Like New",
+                type: "exchange",
+                category: "Moda"
+            },
+            {
+                id: "4",
+                title: "Setup de Oficina en Casa - Completo",
+                price: "$450000",
+                image: "https://images.unsplash.com/photo-1672279902577-5900421bfd14?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob21lJTIwZGVjb3IlMjBpdGVtc3xlbnwxfHx8fDE3NTcwOTc2MTd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+                location: "Barranquilla, Colombia",
+                timeAgo: "hace 2d",
+                condition: "Good",
+                type: "sale",
+                category: "Muebles"
+            },
+            {
+                id: "5",
+                title: "Laptop Gaming - RTX 3060",
+                price: "$1,200000",
+                image: "https://images.unsplash.com/photo-1645684084216-b52ba9e12aaf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVjdHJvbmljcyUyMGdhZGdldHN8ZW58MXx8fHwxNzU3MDc1ODY4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+                location: "Cartagena, Colombia",
+                timeAgo: "hace 3d",
+                condition: "Good",
+                type: "sale",
+                category: "Electrónicos"
+            },
+            {
+                id: "6",
+                title: "Colección de Libros - Primeras Ediciones",
+                price: "A convenir",
+                image: "https://images.unsplash.com/photo-1672279902577-5900421bfd14?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob21lJTIwZGVjb3IlMjBpdGVtc3xlbnwxfHx8fDE3NTcwOTc2MTd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+                location: "Bucaramanga, Colombia",
+                timeAgo: "hace 4d",
+                condition: "New",
+                type: "exchange",
+                category: "Libros"
+            },
+            {
+                id: "7",
+                title: "Equipo de Cámara Profesional",
+                price: "$2,800000",
+                image: "https://images.unsplash.com/photo-1645684084216-b52ba9e12aaf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVjdHJvbmljcyUyMGdhZGdldHN8ZW58MXx8fHwxNzU3MDc1ODY4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+                location: "Pereira, Colombia",
+                timeAgo: "hace 5d",
+                condition: "Like New",
+                type: "sale",
+                category: "Fotografía"
+            },
+            {
+                id: "8",
+                title: "Mesa de Centro Artesanal de Madera",
+                price: "$180000",
+                image: "https://images.unsplash.com/photo-1715249891485-4b8e66b584dc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aW50YWdlJTIwZnVybml0dXJlfGVufDF8fHx8MTc1NzExMDYwNnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+                location: "Manizales, Colombia",
+                timeAgo: "hace 1sem",
+                condition: "New",
+                type: "sale",
+                category: "Muebles"
+            }
+        ];
+
+        // Function to create product card HTML
+        function createProductCard(product) {
+            const typeText = product.type === "exchange" ? "Intercambio" : "En Venta";
+            const badgeClass = product.type === "exchange" ? "badge-secondary" : "badge-default";
+            const priceDisplay = product.type === "exchange" ? "Intercambiar" : product.price;
+            
+            return `
+                <div class="product-card" onclick="handleProductClick('${product.id}')">
+                    <div class="product-image-container">
+                        <img src="${product.image}" alt="${product.title}" class="product-image" loading="lazy">
+                        <button class="product-heart-btn" onclick="event.stopPropagation(); handleHeartClick('${product.id}')">
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+                        <div class="product-type-badge badge ${badgeClass}">${typeText}</div>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-header">
+                            <h3 class="product-title">${product.title}</h3>
+                            <span class="product-price">${priceDisplay}</span>
+                        </div>
+                        <div class="product-meta">
+                            <span class="badge badge-outline">${product.condition}</span>
+                            <span>${product.category}</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-location">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                <span>${product.location}</span>
+                            </div>
+                            <div class="product-time">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                                <span>${product.timeAgo}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to render products
+        function renderProducts() {
+            const featuredContainer = document.getElementById('featured-products');
+            const recentContainer = document.getElementById('recent-products');
+            
+            if (featuredContainer) {
+                featuredContainer.innerHTML = mockProducts.slice(0, 4).map(createProductCard).join('');
+            }
+            
+            if (recentContainer) {
+                recentContainer.innerHTML = mockProducts.slice(4, 8).map(createProductCard).join('');
+            }
+        }
+
+        // Event handlers
+        function handleProductClick(productId) {
+            console.log('Product clicked:', productId);
+            // Here you would typically navigate to product detail page
+            // window.location.href = `/product/${productId}`;
+        }
+
+        function handleHeartClick(productId) {
+            console.log('Heart clicked:', productId);
+            // Here you would typically toggle favorite status
+        }
+
+        // Category click handler
+        function handleCategoryClick(event, categoryName) {
+            event.preventDefault();
+            console.log('Category clicked:', categoryName);
+            // Here you would typically filter products by category
+        }
+
+        // Search functionality
+        function handleSearch() {
+            const searchInput = document.querySelector('.search-input-group input');
+            const locationInput = document.querySelector('.search-location input');
+            
+            const searchTerm = searchInput.value;
+            const location = locationInput.value;
+            
+            console.log('Search:', { searchTerm, location });
+            // Here you would typically perform search
+        }
+
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Mobile menu toggle
+        function setupMobileMenu() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    console.log('Mobile menu clicked');
+                    // Here you would typically toggle mobile menu visibility
+                });
+            }
+        }
+
+        // Newsletter subscription
+        function setupNewsletter() {
+            const newsletterForm = document.querySelector('.newsletter');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input[type="email"]').value;
+                    console.log('Newsletter subscription:', email);
+                    // Here you would typically handle newsletter subscription
+                });
+            }
+        }
+
+        // Search button handler
+        function setupSearch() {
+            const searchButton = document.querySelector('.search-bar .btn-primary');
+            if (searchButton) {
+                searchButton.addEventListener('click', handleSearch);
+            }
+            
+            // Handle Enter key in search inputs
+            document.querySelectorAll('.search-bar input').forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        handleSearch();
+                    }
+                });
+            });
+        }
+
+        // Add click handlers to category cards
+        function setupCategoryHandlers() {
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    const categoryName = this.querySelector('h3').textContent;
+                    handleCategoryClick(e, categoryName);
+                });
+            });
+        }
+
+        // Show/hide elements based on screen size
+        function setupResponsiveElements() {
+            function updateResponsiveElements() {
+                const isMobile = window.innerWidth < 640;
+                const isTablet = window.innerWidth < 768;
+                
+                // Show/hide sell button text
+                const sellButtons = document.querySelectorAll('.header-actions .btn-outline span');
+                sellButtons.forEach(span => {
+                    span.style.display = isMobile ? 'none' : 'inline';
+                });
+                
+                // Show/hide login button text  
+                const loginButtons = document.querySelectorAll('.header-actions .btn-ghost span');
+                loginButtons.forEach(span => {
+                    span.style.display = isMobile ? 'none' : 'inline';
+                });
+                
+                // Show/hide sell button on mobile
+                const sellButtonContainers = document.querySelectorAll('.header-actions .btn-outline');
+                sellButtonContainers.forEach(btn => {
+                    btn.style.display = isMobile ? 'none' : 'inline-flex';
+                });
+            }
+            
+            updateResponsiveElements();
+            window.addEventListener('resize', updateResponsiveElements);
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+            setupSmoothScrolling();
+            setupMobileMenu();
+            setupNewsletter();
+            setupSearch();
+            setupCategoryHandlers();
+            setupResponsiveElements();
+            
+            console.log('GRUPO PS Marketplace initialized');
+        });
+    </script>
+</body>
+</html>
