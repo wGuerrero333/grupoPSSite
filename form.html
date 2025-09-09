@@ -4,8 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario</title>
+   
+<link rel="stylesheet" href="styles.css">
+
 </head>
+ <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">GRUPO PS</a>
+                <nav class="nav">
+                    <a href="#browse">Explorar</a>
+                    <a href="#categories">Categorías</a>
+                    <a href="#how-it-works">Cómo Funciona</a>
+                </nav>
+                <div class="header-actions">
+                    <a href="formVenta.html" class="btn btn-outline">+ Vender Artículo</a>
+                    <a href="form.html" class="btn btn-ghost">👤 Iniciar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </header>
 <body>
-    
+    <h1>subscription</h1>
+     <form  method="get" class="form">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        
+        <label for="mensaje">Mensaje:</label><br>
+        <textarea id="mensaje" name="mensaje" rows="4" cols="50" required></textarea><br><br>
+        
+        <input type="submit" value="Enviar">
+    </form>
 </body>
 </html>
