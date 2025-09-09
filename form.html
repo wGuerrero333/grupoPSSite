@@ -1,42 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario</title>
-   
-<link rel="stylesheet" href="styles.css">
+
+    <link rel="stylesheet" href="styles.css">
 
 </head>
- <header class="header">
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <a href="/" class="logo">GRUPO PS</a>
+            <nav class="nav">
+                <a href="#browse">Explorar</a>
+                <a href="#categories">Categorías</a>
+                <a href="#how-it-works">Cómo Funciona</a>
+            </nav>
+            <div class="header-actions">
+                <a href="formVenta.html" class="btn btn-outline">+ Vender Artículo</a>
+                <a href="form.html" class="btn btn-ghost">👤 Iniciar Sesión</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<body>
+    <h1>subscription</h1>
+    <form method="get" class="form">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="mensaje">Mensaje:</label><br>
+        <textarea id="mensaje" name="mensaje" rows="4" cols="50" required></textarea><br><br>
+
+        <input type="submit" value="Enviar">
+    </form>
+
+    <footer class="footer">
         <div class="container">
-            <div class="header-content">
-                <a href="/" class="logo">GRUPO PS</a>
-                <nav class="nav">
-                    <a href="#browse">Explorar</a>
-                    <a href="#categories">Categorías</a>
-                    <a href="#how-it-works">Cómo Funciona</a>
-                </nav>
-                <div class="header-actions">
-                    <a href="formVenta.html" class="btn btn-outline">+ Vender Artículo</a>
-                    <a href="form.html" class="btn btn-ghost">👤 Iniciar Sesión</a>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>GRUPO PS</h3>
+                    <p>El mercado confiable para comprar, vender e intercambiar artículos en tu comunidad local.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Explorar Artículos</a></li>
+                        <li><a href="#">Categorías</a></li>
+                        <li><a href="#">Cómo Funciona</a></li>
+                        <li><a href="#">Consejos de Seguridad</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Soporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Centro de Ayuda</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                        <li><a href="#">Reportar un Problema</a></li>
+                        <li><a href="#">Directrices de la Comunidad</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Mantente Actualizado</h4>
+                    <p>Recibe notificaciones sobre grandes ofertas y nuevos artículos en tu área.</p>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Tu email">
+                        <button>📧</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 GRUPO PS. Todos los derechos reservados.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Política de Privacidad</a>
+                    <a href="#">Términos de Servicio</a>
+                    <a href="#">Política de Cookies</a>
                 </div>
             </div>
         </div>
-    </header>
-<body>
-    <h1>subscription</h1>
-     <form  method="get" class="form">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required><br><br>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-        
-        <label for="mensaje">Mensaje:</label><br>
-        <textarea id="mensaje" name="mensaje" rows="4" cols="50" required></textarea><br><br>
-        
-        <input type="submit" value="Enviar">
-    </form>
+    </footer>
 </body>
+
 </html>
