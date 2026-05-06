@@ -1,32 +1,30 @@
-  // Simple smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    console.log('Navigating to:', this.getAttribute('href'));
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+document.addEventListener('click', function(e) {
+    const navLink = e.target.closest('a[href^="#"]');
+    if (navLink) {
+        e.preventDefault();
+        const href = navLink.getAttribute('href');
+        const target = document.querySelector(href);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        return;
+    }
 
-        // Add some interactivity to product cards
-        document.querySelectorAll('.product-card').forEach(card => {
-            card.addEventListener('click', function() {
-                console.log('Product clicked:', this.querySelector('.product-title').textContent);
+    const productCard = e.target.closest('.product-card');
+    if (productCard) {
+        const title = productCard.querySelector('.product-title')?.textContent;
+        if (title) {
+            // Navigate to product detail page
+        }
+        return;
+    }
 
-                // Here you could add functionality to open a product detail modal
-            });
-        });
-
-        // Add interactivity to category cards
-        document.querySelectorAll('.category-card').forEach(card => {
-            card.addEventListener('click', function(e) {
-                e.preventDefault();
-                console.log('Category clicked:', this.querySelector('h3').textContent);
-                // Here you could add functionality to filter products by category
-            });
-        });
+    const categoryCard = e.target.closest('.category-card');
+    if (categoryCard) {
+        e.preventDefault();
+        const category = categoryCard.querySelector('h3')?.textContent;
+        if (category) {
+            // Filter products by category
+        }
+    }
+});

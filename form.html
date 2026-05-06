@@ -1,45 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario</title>
-
+    <title>GRUPO PS - Suscripción</title>
     <link rel="stylesheet" href="styles.css">
-
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: var(--font-weight-medium);
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--ring);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .form-submit {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: opacity 0.2s;
+        }
+        .form-submit:hover {
+            opacity: 0.8;
+        }
+    </style>
 </head>
-<header class="header">
-    <div class="container">
-        <div class="header-content">
-            <a href="/" class="logo">GRUPO PS</a>
-            <nav class="nav">
-                <a href="#browse">Explorar</a>
-                <a href="#categories">Categorías</a>
-                <a href="#how-it-works">Cómo Funciona</a>
-            </nav>
-            <div class="header-actions">
-                <a href="formVenta.html" class="btn btn-outline">+ Vender Artículo</a>
-                <a href="form.html" class="btn btn-ghost">👤 Iniciar Sesión</a>
-            </div>
-        </div>
-    </div>
-</header>
 
 <body>
-    <h1>subscription</h1>
-    <form method="get" class="form">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required><br><br>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">GRUPO PS</a>
+                <nav class="nav">
+                    <a href="index.html#browse">Explorar</a>
+                    <a href="index.html#categories">Categorías</a>
+                    <a href="index.html#how-it-works">Cómo Funciona</a>
+                </nav>
+                <div class="header-actions">
+                    <a href="formVenta.html" class="btn btn-outline">+ Publicar Artículo</a>
+                    <a href="form.html" class="btn btn-ghost">👤 Iniciar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </header>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
+    <main class="form-container">
+        <h1>Suscripción</h1>
+        <form method="post" class="form">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
 
-        <label for="mensaje">Mensaje:</label><br>
-        <textarea id="mensaje" name="mensaje" rows="4" cols="50" required></textarea><br><br>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
 
-        <input type="submit" value="Enviar">
-    </form>
+            <div class="form-group">
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+            </div>
+
+            <button type="submit" class="form-submit">Enviar</button>
+        </form>
+    </main>
 
     <footer class="footer">
         <div class="container">
@@ -52,9 +106,9 @@
                 <div class="footer-section">
                     <h4>Enlaces Rápidos</h4>
                     <ul class="footer-links">
-                        <li><a href="#">Explorar Artículos</a></li>
-                        <li><a href="#">Categorías</a></li>
-                        <li><a href="#">Cómo Funciona</a></li>
+                        <li><a href="index.html">Explorar Artículos</a></li>
+                        <li><a href="index.html#categories">Categorías</a></li>
+                        <li><a href="index.html#how-it-works">Cómo Funciona</a></li>
                         <li><a href="#">Consejos de Seguridad</a></li>
                     </ul>
                 </div>
